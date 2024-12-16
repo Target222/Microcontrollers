@@ -1,12 +1,15 @@
 #include<stdio.h>
 
-int y = 1;
+void modificate(int *ram, int *latency){
+  *ram = *ram - 1;
+  *latency = *latency + 1;
+}
 
-int main(void){
-  int x = 4;
 
-  printf("Адрес переменной y: %i \n", &y);
-  printf("Адрес переменной x: %i \n", &x);
+void main(){
+   int ram = 32;
+   int latency = -64;
 
-  return 0;
+  modificate(&ram, &latency);
+  printf("%i %i\n", ram, latency);
 }
