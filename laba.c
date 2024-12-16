@@ -14,7 +14,7 @@
 #define LED_GPIO_PORT                          GPIOB
 
 
-#define LED_GPIO_CLK_ENABLE()                 __HAL_RCC_GPIOB_CLK_ENABLE()
+#define LED_GPIO_CLK_ENABLE()                  __HAL_RCC_GPIOB_CLK_ENABLE()
 
 int main(void)
 {
@@ -38,24 +38,37 @@ int main(void)
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
 
-  long frequency = 1000;  
-  
+  long number_of_click = 0;   
   while (1){
     if(HAL_GPIO_ReadPin(LED_GPIO_PORT,LED5_PIN) == GPIO_PIN_SET){
-        HAL_GPIO_TogglePin(LED_GPIO_PORT, LED1_PIN);
-        HAL_Delay(frequency);
-        HAL_GPIO_TogglePin(LED_GPIO_PORT, LED1_PIN);
-        HAL_GPIO_TogglePin(LED_GPIO_PORT, LED2_PIN);
-        HAL_Delay(frequency);
-        HAL_GPIO_TogglePin(LED_GPIO_PORT, LED2_PIN);
-        HAL_GPIO_TogglePin(LED_GPIO_PORT, LED3_PIN);
-        HAL_Delay(frequency);
-        HAL_GPIO_TogglePin(LED_GPIO_PORT, LED3_PIN);
-        HAL_GPIO_TogglePin(LED_GPIO_PORT, LED4_PIN);
-        HAL_Delay(frequency);
-        HAL_GPIO_TogglePin(LED_GPIO_PORT, LED4_PIN); 
-
-        frequency = frequency == 100 ? 1000 : frequency - 100;
+      if(number_of_click % 2 == 0){
+          HAL_GPIO_TogglePin(LED_GPIO_PORT, LED1_PIN);
+          HAL_Delay(500);
+          HAL_GPIO_TogglePin(LED_GPIO_PORT, LED1_PIN);
+          HAL_GPIO_TogglePin(LED_GPIO_PORT, LED2_PIN);
+          HAL_Delay(500);
+          HAL_GPIO_TogglePin(LED_GPIO_PORT, LED2_PIN);
+          HAL_GPIO_TogglePin(LED_GPIO_PORT, LED3_PIN);
+          HAL_Delay(500);
+          HAL_GPIO_TogglePin(LED_GPIO_PORT, LED3_PIN);
+          HAL_GPIO_TogglePin(LED_GPIO_PORT, LED4_PIN);
+          HAL_Delay(500);
+          HAL_GPIO_TogglePin(LED_GPIO_PORT, LED4_PIN); 
+      }else{
+          HAL_GPIO_TogglePin(LED_GPIO_PORT, LED4_PIN);
+          HAL_Delay(500);
+          HAL_GPIO_TogglePin(LED_GPIO_PORT, LED4_PIN);
+          HAL_GPIO_TogglePin(LED_GPIO_PORT, LED3_PIN);
+          HAL_Delay(500);
+          HAL_GPIO_TogglePin(LED_GPIO_PORT, LED3_PIN);
+          HAL_GPIO_TogglePin(LED_GPIO_PORT, LED2_PIN);
+          HAL_Delay(500);
+          HAL_GPIO_TogglePin(LED_GPIO_PORT, LED2_PIN);
+          HAL_GPIO_TogglePin(LED_GPIO_PORT, LED1_PIN);
+          HAL_Delay(500);
+          HAL_GPIO_TogglePin(LED_GPIO_PORT, LED1_PIN); 
+      }
+      number_of_click++;
     }
   }
 }
